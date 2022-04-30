@@ -38,9 +38,13 @@
 <body>
 <div>
     <h1>Welcome!</h1>
-    <p>This is the future landing place of a code test! Please be patient.</p>
+    <p>This is the future landing place of a code test! Please be patient. To take a look at the repo for this very simple code, head to https://github.com/mmatthews1981/trips</p>
 </div>
 
+<div id="app">{{ message }}</div>
+
+
+<script src="https://unpkg.com/vue@3"></script>
 <script>
 
 fetch('/trips.json')
@@ -49,6 +53,17 @@ fetch('/trips.json')
 
 
 </script>
+
+<script>
+    Vue.createApp({
+      data() {
+        return {
+          message: 'Hello Vue!'
+        }
+      }
+    }).mount('#app')
+  </script>
+  
 
 
 </body>
