@@ -53,7 +53,7 @@
         <option v-for="option in filterList" v-bind:value="option">{{ option }}</option>
     </select>
 
-    {{ sortOrder.length }}
+    {{ sortOrder.length }} results
     <div v-if="trips" v-for="(trip, idx) in sortOrder">
 
         <img v-bind:src="'https://cms.inspirato.com/ImageGen.ashx?image='+trip.heroImage+'&width=200'">
