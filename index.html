@@ -1,11 +1,76 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
     <title>Inspirato Trips Project</title>
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
     <style type="text/css">
+        body {
+            max-width: 1140px;
+            margin:0 auto;
+        }
+
+        h2 {
+            margin: 8px 0;
+        }
+        header {
+            padding: 8px;
+        }
+        main{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        p {
+            width: 100%;
+            padding: 8px;
+        }
+        .controls {
+            display: flex;
+            width: 100%;
+            padding: 8px;
+        }
+        .tag {
+            width: fit-content;
+            margin-bottom: 16px;;
+        }
+        .controls button {
+            margin-left: auto;
+            height: fit-content;
+            align-self: end;
+        }
+        .controls select {
+            display: block;
+            margin-left: 8px;
+        }
+        .controls .results {
+            padding: 12px;
+        }
+        article {
+            margin: 15px;
+            box-shadow:0px 0px 16px 0px rgba(136,136,136,1);
+            border-radius: 0 0 3px 3px;
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+        }
+        article img {
+            object-fit: fill;
+            width: 100%;
+        }
+
+        .details{
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            height: 100%;
+        }
+        .availability {
+            margin-top: auto;
+        }
 
     </style>    
     <script src="https://unpkg.com/vue@3"></script>
@@ -13,24 +78,31 @@
 
 <body>
 <header>
-    <h1>Welcome!</h1>
-    <p>This is the future landing place of a code test! Please be patient. To take a look at the repo for this very simple code, head to <a href="https://github.com/mmatthews1981/trips">my github repo</a>.</p>
+    <h1>Premium Lease Properties</h1>
 </header>
 
 <main id="app">
+    <p>This code test uses Vue3, mini.css, and is deployed automatically via netlify. To review the code, head to <a href="https://github.com/mmatthews1981/trips">my github repo</a>.</p>
+    <div class="controls">
+        <div>
+            <label for="propertyType">Filter Results by Property Type</label>
+            <select id="propertyType" v-model="selected" v-if="trips">
+                <option value="">All</option>
+                <option v-for="option in filterList" v-bind:value="option">{{ option }}</option>
+            </select>
+            <span class="results" v-if="trips">{{ sortOrder?.length }} results</span>
+        </div>
 
-    <button v-on:click="toggleSort()" v-if="trips">Sort</button>
-    <select v-model="selected" v-if="trips">
-        <option value="">All</option>
-        <option v-for="option in filterList" v-bind:value="option">{{ option }}</option>
-    </select>
-    <span v-if="trips">{{ sortOrder?.length }} results</span>
-
+        <button v-on:click="toggleSort()" v-if="trips">Sort {{ sortAscending? "Ascending" : "Descending"}}</button>
+    </div>
     <article v-if="trips" v-for="(trip, idx) in sortOrder">
-        <img v-bind:src="'https://cms.inspirato.com/ImageGen.ashx?image='+trip.heroImage+'&width=200'">
-        {{ trip.unitName }}
-        {{ trip.unitStyleName }}
-        {{ formattedDate(trip.checkInDate) }}
+        <img v-bind:src="'https://cms.inspirato.com/ImageGen.ashx?image='+trip.heroImage+'&width=300'" v-bind:alt="'trip.unitName'">
+        <div class="details">
+            <h2>{{ trip.unitName }}</h2>
+            <mark class="tag">{{ trip.unitStyleName }}</mark>
+            <div class="availability">Earliest Avaliability: {{ formattedDate(trip.checkInDate) }}</div>
+        </div>
+        
     </article>
 
 </main>
@@ -65,7 +137,7 @@
       methods: {
         formattedDate(raw){
             let date = new Date(raw);
-            return date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+            return (date.getMonth()+1) + '-' + date.getDate() + '-'+ date.getFullYear();
         },
         toggleSort() {
             this.sortAscending = !this.sortAscending;
