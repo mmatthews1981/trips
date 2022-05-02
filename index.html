@@ -87,7 +87,7 @@
             </select>
             <span class="results" v-if="trips">{{ sortOrder?.length }} results</span>
         </div>
-        <button v-on:click="toggleSort()" v-if="trips">Sort {{ sortAscending? "Ascending" : "Descending"}}</button>
+        <button v-on:click="toggleSort()" v-if="trips">Sort By Date {{ sortAscending? "Ascending" : "Descending"}}</button>
     </div>
     <article v-if="trips" v-for="(trip, idx) in sortOrder">
         <img v-bind:src="'https://cms.inspirato.com/ImageGen.ashx?image='+trip.heroImage+'&width=300'" v-bind:alt="'trip.unitName'">
