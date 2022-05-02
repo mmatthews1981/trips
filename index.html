@@ -11,7 +11,6 @@
             max-width: 1140px;
             margin:0 auto;
         }
-
         h2 {
             margin: 8px 0;
         }
@@ -61,7 +60,6 @@
             object-fit: fill;
             width: 100%;
         }
-
         .details{
             display: flex;
             flex-direction: column;
@@ -71,16 +69,13 @@
         .availability {
             margin-top: auto;
         }
-
     </style>    
     <script src="https://unpkg.com/vue@3"></script>
 </head>
-
 <body>
 <header>
     <h1>Premium Lease Properties</h1>
 </header>
-
 <main id="app">
     <p>This code test uses Vue3, mini.css, and is deployed automatically via netlify. To review the code, head to <a href="https://github.com/mmatthews1981/trips">my github repo</a>.</p>
     <div class="controls">
@@ -92,7 +87,6 @@
             </select>
             <span class="results" v-if="trips">{{ sortOrder?.length }} results</span>
         </div>
-
         <button v-on:click="toggleSort()" v-if="trips">Sort {{ sortAscending? "Ascending" : "Descending"}}</button>
     </div>
     <article v-if="trips" v-for="(trip, idx) in sortOrder">
@@ -102,12 +96,9 @@
             <mark class="tag">{{ trip.unitStyleName }}</mark>
             <div class="availability">Earliest Avaliability: {{ formattedDate(trip.checkInDate) }}</div>
         </div>
-        
     </article>
-
 </main>
 <script>
-
     Vue.createApp({
       data() {
         return {
@@ -142,7 +133,6 @@
         toggleSort() {
             this.sortAscending = !this.sortAscending;
         }
-
       },
       created() {
         fetch('/trips.json')
